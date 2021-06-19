@@ -37,4 +37,6 @@ public interface FileService {
     boolean checkAccess(UUID fileUuid);
 
     FilesharesSocialFile getFilesharesSocialFile(String shareLink);
+
+    List<FilesharesSocialFile> getAllFilesharesSocialFiles(User user);
 }

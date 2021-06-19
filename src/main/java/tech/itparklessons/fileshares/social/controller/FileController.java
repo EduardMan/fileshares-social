@@ -102,4 +102,9 @@ public class FileController {
     public FilesharesSocialFile getFilesharesSocialFile(@RequestParam String shareLink) {
         return fileService.getFilesharesSocialFile(shareLink);
     }
+
+    @GetMapping("/getAllFilesForUser")
+    public List<FilesharesSocialFile> getAllFilesForUser(@AuthenticationPrincipal User user) {
+        return fileService.getAllFilesharesSocialFiles(user);
+    }
 }

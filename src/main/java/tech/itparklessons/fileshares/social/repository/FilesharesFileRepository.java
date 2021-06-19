@@ -14,4 +14,6 @@ public interface FilesharesFileRepository extends JpaRepository<FilesharesSocial
 
     @Query(value = "UPDATE fileshares_file SET deleted = true WHERE filesServiceFileUUID IN (:fileUUID)", nativeQuery = true)
     void markAsDeleted(List<UUID> fileUUID);
+
+    List<FilesharesSocialFile> findByOwnerIdAndAccess_PublicAndDeletedIsFalse(Long userId);
 }
