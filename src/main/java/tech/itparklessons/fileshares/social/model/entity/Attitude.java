@@ -15,7 +15,7 @@ public class Attitude {
     private Boolean likeDislike;
 
     @ManyToOne
-    private FilesharesFile filesharesFile;
+    private FilesharesSocialFile filesharesFile;
 
     private boolean deleted = false;
 }

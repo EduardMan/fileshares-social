@@ -13,7 +13,7 @@ public class FilesharesFileShareLink {
     private Long id;
 
     @ManyToOne
-    private FilesharesFile filesharesFile;
+    private FilesharesSocialFile filesharesFile;
 
     @GenericGenerator(name = "share_link", strategy = "tech.itparklessons.fileshares.social.model.generator.ShareLinkGenerator")
     @GeneratedValue(generator = "share_link")

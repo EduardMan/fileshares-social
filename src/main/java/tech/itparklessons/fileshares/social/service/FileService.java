@@ -4,6 +4,7 @@ import tech.itparklessons.fileshares.social.model.User;
 import tech.itparklessons.fileshares.social.model.dto.AddingFileInfo;
 import tech.itparklessons.fileshares.social.model.dto.ChangeAccessRequest;
 import tech.itparklessons.fileshares.social.model.dto.CommentRequest;
+import tech.itparklessons.fileshares.social.model.entity.FilesharesSocialFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,4 +33,8 @@ public interface FileService {
     void addComment(String shareLink, CommentRequest commentRequestUser, User user);
 
     void removeComment(Long commentId, User user);
+
+    boolean checkAccess(UUID fileUuid);
+
+    FilesharesSocialFile getFilesharesSocialFile(String shareLink);
 }

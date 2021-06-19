@@ -12,7 +12,7 @@ import tech.itparklessons.fileshares.social.model.dto.ChangeAccessRequest;
 import tech.itparklessons.fileshares.social.model.dto.CommentRequest;
 import tech.itparklessons.fileshares.social.model.entity.Attitude;
 import tech.itparklessons.fileshares.social.model.entity.Comment;
-import tech.itparklessons.fileshares.social.model.entity.FilesharesFile;
+import tech.itparklessons.fileshares.social.model.entity.FilesharesSocialFile;
 import tech.itparklessons.fileshares.social.model.entity.FilesharesFileShareLink;
 import tech.itparklessons.fileshares.social.repository.AttitudeRepository;
 import tech.itparklessons.fileshares.social.repository.CommentRepository;
@@ -42,9 +42,9 @@ public class FileServiceImpl implements FileService {
             return;
         }
 
-        List<FilesharesFile> filesharesFilesForAddingToStorage = new ArrayList<>();
+        List<FilesharesSocialFile> filesharesFilesForAddingToStorage = new ArrayList<>();
         for (AddingFileInfo addingFileInfo : addingFileInfos) {
-            filesharesFilesForAddingToStorage.add(new FilesharesFile(user.getId(), addingFileInfo.getFileUUID()));
+            filesharesFilesForAddingToStorage.add(new FilesharesSocialFile(user.getId(), addingFileInfo.getFileUUID()));
         }
 
         fileRepository.saveAll(filesharesFilesForAddingToStorage);
@@ -75,13 +75,13 @@ public class FileServiceImpl implements FileService {
     @Override
     public void changeAccess(ChangeAccessRequest changeAccessRequest, User user) {
         List<UUID> filesUUID = changeAccessRequest.getFilesUUID();
-        List<FilesharesFile> allFilesByFilesServiceUUIDs = fileRepository.findAllByFilesServiceFileUUIDIn(filesUUID);
+        List<FilesharesSocialFile> allFilesByFilesServiceUUIDs = fileRepository.findAllByFilesServiceFileUUIDIn(filesUUID);
 
         boolean anyFileUserNotOwner = allFilesByFilesServiceUUIDs.stream().anyMatch(file -> !file.getOwnerId().equals(user.getId()));
         if (anyFileUserNotOwner)
             return;
 
-        for (FilesharesFile filesharesFile : allFilesByFilesServiceUUIDs) {
+        for (FilesharesSocialFile filesharesFile : allFilesByFilesServiceUUIDs) {
             filesharesFile.setAccess(changeAccessRequest.getAccess());
         }
 
@@ -91,7 +91,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String getPublicLink(UUID fileUUID, User user) {
-        FilesharesFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
+        FilesharesSocialFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
         if (!filesharesFile.getOwnerId().equals(user.getId())) {
             return null;
         }
@@ -108,7 +108,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void addComment(UUID fileUUID, CommentRequest commentRequest, User user) {
-        FilesharesFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
+        FilesharesSocialFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
 
         if (!isInteractionAcceptable(filesharesFile)) {
             return;
@@ -150,8 +150,18 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public boolean checkAccess(UUID fileUuid) {
+        return isInteractionAcceptable(fileRepository.findByFilesServiceFileUUID(fileUuid));
+    }
+
+    @Override
+    public FilesharesSocialFile getFilesharesSocialFile(String shareLink) {
+        return filesharesFileShareLinkRepository.findByShareLink(shareLink).getFilesharesFile();
+    }
+
+    @Override
     public void like(UUID fileUUID, User user) {
-        FilesharesFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
+        FilesharesSocialFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
 
         if (isInteractionAcceptable(filesharesFile)) {
             Attitude attitude = attitudeRepository.findByFilesharesFile_FilesServiceFileUUID(fileUUID);
@@ -173,7 +183,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void dislike(UUID fileUUID, User user) {
-        FilesharesFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
+        FilesharesSocialFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
 
         if (isInteractionAcceptable(filesharesFile)) {
             Attitude attitude = attitudeRepository.findByFilesharesFile_FilesServiceFileUUID(fileUUID);
@@ -195,7 +205,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void removeAttitude(UUID fileUUID, User user) {
-        FilesharesFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
+        FilesharesSocialFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
 
         if (isInteractionAcceptable(filesharesFile)) {
             Attitude attitude = attitudeRepository.findByFilesharesFile_FilesServiceFileUUID(fileUUID);
@@ -215,7 +225,7 @@ public class FileServiceImpl implements FileService {
         }
     }
 
-    private boolean isInteractionAcceptable(FilesharesFile filesharesFile) {
+    private boolean isInteractionAcceptable(FilesharesSocialFile filesharesFile) {
         return filesharesFile.getAccess() == Access.PUBLIC;
     }
 }

@@ -7,6 +7,7 @@ import tech.itparklessons.fileshares.social.model.User;
 import tech.itparklessons.fileshares.social.model.dto.AddingFileInfo;
 import tech.itparklessons.fileshares.social.model.dto.ChangeAccessRequest;
 import tech.itparklessons.fileshares.social.model.dto.CommentRequest;
+import tech.itparklessons.fileshares.social.model.entity.FilesharesSocialFile;
 import tech.itparklessons.fileshares.social.service.FileService;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class FileController {
         fileService.changeAccess(changeAccessRequest, user);
     }
 
-    @PostMapping("getPublicLink")
+    @PostMapping("/getPublicLink")
     public String getPublicLink(@RequestParam UUID fileUUID,
                                 @AuthenticationPrincipal User user) {
         return fileService.getPublicLink(fileUUID, user);
@@ -90,5 +91,15 @@ public class FileController {
     public void removeComment(@RequestParam Long commentId,
                               @AuthenticationPrincipal User user) {
         fileService.removeComment(commentId, user);
+    }
+
+    @GetMapping("/internal/checkAccess")
+    public boolean checkAccess(@RequestParam UUID fileUuid) {
+        return fileService.checkAccess(fileUuid);
+    }
+
+    @GetMapping("/internal/getByShareLink")
+    public FilesharesSocialFile getFilesharesSocialFile(@RequestParam String shareLink) {
+        return fileService.getFilesharesSocialFile(shareLink);
     }
 }

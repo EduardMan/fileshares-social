@@ -11,7 +11,7 @@ import java.util.UUID;
 @Data
 @Entity
 @NoArgsConstructor
-public class FilesharesFile {
+public class FilesharesSocialFile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +28,7 @@ public class FilesharesFile {
 
     private boolean deleted;
 
-    public FilesharesFile(Long ownerId, UUID filesServiceFileUUID) {
+    public FilesharesSocialFile(Long ownerId, UUID filesServiceFileUUID) {
         this.ownerId = ownerId;
         this.filesServiceFileUUID = filesServiceFileUUID;
         this.access = Access.PRIVATE;

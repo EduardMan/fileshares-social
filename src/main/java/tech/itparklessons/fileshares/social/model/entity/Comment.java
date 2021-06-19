@@ -15,7 +15,7 @@ public class Comment {
     private Long ownerId;
 
     @OneToOne
-    private FilesharesFile filesharesFile;
+    private FilesharesSocialFile filesharesFile;
 
     private boolean deleted = false;
 }
