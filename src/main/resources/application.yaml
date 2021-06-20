@@ -4,7 +4,7 @@ application:
 
 spring:
   datasource:
-    url: jdbc:postgresql://fileshare_social:5462/fileshares_social
+    url: jdbc:postgresql://fileshares_social-db:5462/fileshares_social
     username: postgres
     password: password
   jpa:
