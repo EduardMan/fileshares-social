@@ -50,28 +50,28 @@ services:
 
 
   fileshares-account-db:
-    image: postgres
+    image: postgres:12.4-alpine
     environment:
       - POSTGRES_DB=fileshares_account
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
 
   fileshares-files-db:
-    image: postgres
+    image: postgres:12.4-alpine
     environment:
       - POSTGRES_DB=fileshares_files
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
 
   fileshares-social-db:
-    image: postgres
+    image: postgres:12.4-alpine
     environment:
       - POSTGRES_DB=fileshares_social
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
 
   fileshares-archiver-db:
-    image: postgres
+    image: postgres:12.4-alpine
     environment:
       - POSTGRES_DB=fileshares_archiver
       - POSTGRES_USER=postgres
