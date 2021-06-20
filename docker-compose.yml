@@ -1,13 +1,69 @@
 version: '3.7'
 services:
+  nginx:
+    image: nginx
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    ports:
+      - 8888:80
+
+  rabbitmq:
+    image: rabbitmq
+    build:
+      context: .
+      dockerfile: rabbitMQ.Dockerfile
+
+
+  fileshares-account-service:
+    image: ghcr.io/eduardman/fileshares-account:latest
+    build: .
+    depends_on:
+      - fileshares-account-db
+
+  fileshares-files-service:
+    image: ghcr.io/eduardman/fileshares-files:latest
+    build: .
+    depends_on:
+      - fileshares-files-db
+
   fileshares-social-service:
     image: ghcr.io/eduardman/fileshares-social:latest
     build: .
     depends_on:
       - fileshares-social-db
+
+  fileshares-archiver-service:
+    image: ghcr.io/eduardman/fileshares-archiver:latest
+    build: .
+    depends_on:
+      - fileshares-archiver-db
+
+
+  fileshares-account-db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=fileshares_account
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  fileshares-files-db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=fileshares_files
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
   fileshares-social-db:
     image: postgres
     environment:
       - POSTGRES_DB=fileshares_social
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  fileshares-archiver-db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=fileshares_archiver
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
