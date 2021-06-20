@@ -7,6 +7,11 @@ services:
       dockerfile: nginx.Dockerfile
     ports:
       - 8888:80
+    depends_on:
+      - fileshares-account-service
+      - fileshares-files-service
+      - fileshares-social-service
+      - fileshares-archiver-service
 
   rabbitmq:
     image: rabbitmq
@@ -20,24 +25,28 @@ services:
     build: .
     depends_on:
       - fileshares-account-db
+      - rabbitmq
 
   fileshares-files-service:
     image: ghcr.io/eduardman/fileshares-files:latest
     build: .
     depends_on:
       - fileshares-files-db
+      - rabbitmq
 
   fileshares-social-service:
     image: ghcr.io/eduardman/fileshares-social:latest
     build: .
     depends_on:
       - fileshares-social-db
+      - rabbitmq
 
   fileshares-archiver-service:
     image: ghcr.io/eduardman/fileshares-archiver:latest
     build: .
     depends_on:
       - fileshares-archiver-db
+      - rabbitmq
 
 
   fileshares-account-db:
@@ -45,25 +54,25 @@ services:
     environment:
       - POSTGRES_DB=fileshares_account
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=password
 
   fileshares-files-db:
     image: postgres
     environment:
       - POSTGRES_DB=fileshares_files
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=password
 
   fileshares-social-db:
     image: postgres
     environment:
       - POSTGRES_DB=fileshares_social
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=password
 
   fileshares-archiver-db:
     image: postgres
     environment:
       - POSTGRES_DB=fileshares_archiver
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=password
