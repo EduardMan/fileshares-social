@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  fileshare-account-service:
+    image: ghcr.io/eduardman/fileshares-social:latest
+    build: .
+    depends_on:
+      - fileshares-social-db
+  fileshares-social-db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=fileshares_social
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres

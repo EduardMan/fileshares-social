@@ -1,15 +1,12 @@
 application:
   queues:
-    deleted-files: files-deleted-queue
+    deleted-files: files-deleted-social-queue
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:6870/fileshares_social
+    url: jdbc:postgresql://fileshare_social:5462/fileshares_social
     username: postgres
     password: password
   jpa:
     hibernate:
       ddl-auto: update
-
-server:
-  port: 8082
