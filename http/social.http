@@ -8,3 +8,8 @@ Content-Type: application/json
     "compressLevel": 5
   }
 ]
+
+###
+
+POST http://localhost:8888/api/social/getPublicLink?fileUUID={{fileUUID}}
+Authorization: Bearer {{auth_token}}

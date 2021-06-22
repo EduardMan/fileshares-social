@@ -19,7 +19,7 @@ public class FilesharesSocialFile {
     @Column(nullable = false)
     private Long ownerId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private UUID filesServiceFileUUID;
 
     @Enumerated(EnumType.STRING)
