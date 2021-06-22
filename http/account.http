@@ -49,3 +49,5 @@ Authorization: Bearer {{auth_token}}
 Accept: application/json
 
 ###
+
+GET http://localhost:8888/api/user?loginOrEmail=Petr_92

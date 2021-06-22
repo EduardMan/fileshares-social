@@ -31,7 +31,7 @@ public class FileController {
 
     @GetMapping("/getAllOwnerFiles")
     public List<FilesharesSocialFile> getAllOwnerFiles(@AuthenticationPrincipal User user) {
-        return fileService.getAllUserFiles(user);
+        return fileService.getAllOwnerFiles(user);
     }
 
     @GetMapping("/getAllUserFiles")
