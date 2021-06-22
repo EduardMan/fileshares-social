@@ -13,3 +13,13 @@ Content-Type: application/json
 
 POST http://localhost:8888/api/social/getPublicLink?fileUUID={{fileUUID}}
 Authorization: Bearer {{auth_token}}
+
+###
+
+GET http://localhost:8888/api/social/getAllOwnerFiles
+Authorization: Bearer {{auth_token}}
+
+###
+
+GET http://localhost:8888/api/social/getAllUserFiles
+Authorization: Bearer {{auth_token}}
