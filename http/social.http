@@ -1,0 +1,10 @@
+POST http://localhost:8888/api/social/storage
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+[
+  {
+    "fileUUID": "{{fileUUID}}",
+    "compressLevel": 5
+  }
+]
