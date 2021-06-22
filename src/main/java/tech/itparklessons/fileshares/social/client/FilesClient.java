@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.UUID;
 
-@FeignClient(url = "http://fileshares-files-service:8080/internal/files/checkOwner", name = "file")
+@FeignClient(url = "http://fileshares-files-service:8080/internal/files", name = "file")
 public interface FilesClient {
     @GetMapping("/checkOwner")
     boolean checkOwner(@RequestParam List<UUID> fileUUID, @RequestParam Long userId);
