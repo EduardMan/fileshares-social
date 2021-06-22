@@ -75,7 +75,9 @@ public class FileServiceImpl implements FileService {
     @Override
     public void changeAccess(ChangeAccessRequest changeAccessRequest, User user) {
         List<UUID> filesUUID = changeAccessRequest.getFilesUUID();
+        System.out.println("start");
         List<FilesharesSocialFile> allFilesByFilesServiceUUIDs = fileRepository.findAllByFilesServiceFileUUIDIn(filesUUID);
+        System.out.println("end");
 
         boolean anyFileUserNotOwner = allFilesByFilesServiceUUIDs.stream().anyMatch(file -> !file.getOwnerId().equals(user.getId()));
         if (anyFileUserNotOwner)
@@ -85,7 +87,6 @@ public class FileServiceImpl implements FileService {
             filesharesFile.setAccess(changeAccessRequest.getAccess());
         }
 
-        filesharesFileShareLinkRepository.markAsDeleted(filesUUID);
         fileRepository.saveAll(allFilesByFilesServiceUUIDs);
     }
 
