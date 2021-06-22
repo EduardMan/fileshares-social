@@ -38,5 +38,7 @@ public interface FileService {
 
     FilesharesSocialFile getFilesharesSocialFile(String shareLink);
 
-    List<FilesharesSocialFile> getAllFilesharesSocialFiles(User user);
+    List<FilesharesSocialFile> getAllUserFiles(User user);
+
+    List<FilesharesSocialFile> getAllUserFiles(Long ownerId);
 }

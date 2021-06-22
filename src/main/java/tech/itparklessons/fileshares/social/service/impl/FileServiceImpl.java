@@ -160,8 +160,13 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public List<FilesharesSocialFile> getAllFilesharesSocialFiles(User user) {
-        return fileRepository.findByOwnerIdAndAccess_PublicAndDeletedIsFalse(user.getId());
+    public List<FilesharesSocialFile> getAllUserFiles(User user) {
+        return fileRepository.findAllByOwnerIdAndAccess_PublicAndDeletedIsFalse(user.getId());
+    }
+
+    @Override
+    public List<FilesharesSocialFile> getAllUserFiles(Long ownerId) {
+        return fileRepository.findAllByOwnerIdAndDeletedFalse(ownerId);
     }
 
     @Override

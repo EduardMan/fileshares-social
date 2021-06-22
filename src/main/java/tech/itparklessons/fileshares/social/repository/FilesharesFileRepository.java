@@ -16,5 +16,7 @@ public interface FilesharesFileRepository extends JpaRepository<FilesharesSocial
     void markAsDeleted(List<UUID> fileUUID);
 
     @Query(value = "SELECT * FROM FilesharesSocialFile WHERE owner_id = :userId AND access = 'PUBLIC' AND deleted = false", nativeQuery = true)
-    List<FilesharesSocialFile> findByOwnerIdAndAccess_PublicAndDeletedIsFalse(Long userId);
+    List<FilesharesSocialFile> findAllByOwnerIdAndAccess_PublicAndDeletedIsFalse(Long userId);
+
+    List<FilesharesSocialFile> findAllByOwnerIdAndDeletedFalse(Long userId);
 }

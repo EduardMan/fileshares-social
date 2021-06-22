@@ -1,0 +1,57 @@
+POST http://localhost:8888/api/files/upload
+Authorization: Bearer {{auth_token}}
+Content-Type: multipart/form-data; boundary=boundary
+
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="input-second.txt"
+
+Text for tests
+--boundary--
+
+> {%
+client.global.set("fileUUID", response.body)
+%}
+
+###
+
+POST http://localhost:8888/api/files/upload
+Authorization: Bearer {{auth_token}}
+Content-Type: multipart/form-data; boundary=boundary
+
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="snowmanTerminal.jpg"
+
+< ./snowmanTerminal.jpg
+
+--boundary--
+
+> {%
+client.global.set("fileUUID", response.body)
+%}
+
+###
+
+GET http://localhost:8888/api/files
+Authorization: Bearer {{auth_token}}
+
+###
+
+GET http://localhost:8888/api/files/getFile?fileUUID={{fileUUID}}
+Authorization: Bearer {{auth_token}}
+
+###
+
+GET http://localhost:8888/api/files/getFile?fileUUID={{fileUUID}}
+Authorization: Bearer {{auth_token_2}}
+
+###
+
+GET http://localhost:8888/api/files/getFileByShareLink?shareLink={{shareLink}}
+Authorization: Bearer {{auth_token_2}}
+
+###
+
+POST http://localhost:8888/api/files/deleteFile?fileUUID={{fileUUID}}
+Authorization: Bearer {{auth_token}}

@@ -1,0 +1,51 @@
+POST http://localhost:8888/api/user/registration
+Content-Type: application/json
+
+{
+  "login": "Petr_92",
+  "username": "Petr",
+  "email": "petr@yandex.ru",
+  "password": "123qwe123"
+}
+
+> {%
+client.global.set("auth_token", response.body)
+%}
+
+###
+
+POST http://localhost:8888/api/user/registration
+Content-Type: application/json
+
+{
+  "login": "Petr_92_2",
+  "username": "Petr",
+  "email": "petr@yandex.ru",
+  "password": "123qwe123"
+}
+
+> {%
+client.global.set("auth_token_2", response.body)
+%}
+
+###
+
+POST http://localhost:8888/api/user/login
+Content-Type: application/json
+
+{
+  "login": "Petr_92",
+  "password": "123qwe123"
+}
+
+> {%
+client.global.set("auth_token", response.body)
+%}
+
+###
+
+GET http://localhost:8888/api/user/verify
+Authorization: Bearer {{auth_token}}
+Accept: application/json
+
+###
