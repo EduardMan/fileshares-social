@@ -36,3 +36,16 @@ Content-Type: application/json
   ],
   "access": "PUBLIC"
 }
+
+###
+
+POST http://localhost:8888/api/social/access/changeAccess
+Authorization: Bearer {{auth_token}}
+Content-Type: application/json
+
+{
+  "filesUUID": [
+    "{{fileUUID}}"
+  ],
+  "access": "PRIVATE"
+}
