@@ -61,14 +61,14 @@ public class FileServiceImpl implements FileService {
             UUID fileUUID = addingFileInfo.getFileUUID();
             Integer compressLevel = addingFileInfo.getCompressLevel();
             ArchiveFileRabbitMessage archiveFileRabbitMessage = new ArchiveFileRabbitMessage(fileUUID, compressLevel);
-            String routingKey = "medium";
+            String routingKey = "social-medium-archiver-queue";
             if (compressLevel <= 3) {
-                routingKey = "low";
+                routingKey = "social-low-archiver-queue";
             } else if (compressLevel > 6) {
-                routingKey = "high";
+                routingKey = "social-high-archiver-queue";
             }
 
-            template.convertAndSend("fileshares", routingKey, archiveFileRabbitMessage);
+            template.convertAndSend("", routingKey, archiveFileRabbitMessage);
         }
     }
 
