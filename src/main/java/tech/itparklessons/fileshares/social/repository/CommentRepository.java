@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    @Query(value = "UPDATE comment SET deleted = true WHERE fileshares_file IN (:fileUUID)", nativeQuery = true)
+    @Query(value = "UPDATE comment SET deleted = true WHERE fileshares_file_id IN (:fileUUID)", nativeQuery = true)
     void markAsDeleted(List<UUID> fileUUID);
 }
