@@ -10,6 +10,7 @@ import java.util.UUID;
 public interface FilesharesFileShareLinkRepository extends JpaRepository<FilesharesFileShareLink, Long> {
     FilesharesFileShareLink findByShareLink(String shareLink);
 
-    @Query(value = "UPDATE fileshares_file_share_link SET deleted = true WHERE fileshares_file_id IN (:fileUUID)", nativeQuery = true)
+    @Query(value = "UPDATE fileshares_file_share_link SET deleted = true WHERE fileshares_file_id IN " +
+            "(SELECT fileshares_social_file.id FROM fileshares_social_file WHERE files_service_fileuuid IN (:fileUUID))", nativeQuery = true)
     void markAsDeleted(List<UUID> fileUUID);
 }

@@ -1,7 +1,7 @@
 package tech.itparklessons.fileshares.social.model.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.GenericGenerator;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.persistence.*;
 
@@ -15,10 +15,12 @@ public class FilesharesFileShareLink {
     @ManyToOne
     private FilesharesSocialFile filesharesFile;
 
-    @GenericGenerator(name = "share_link", strategy = "tech.itparklessons.fileshares.social.model.generator.ShareLinkGenerator")
-    @GeneratedValue(generator = "share_link")
     @Column(nullable = false)
     private String shareLink;
 
     private boolean deleted;
+
+    public FilesharesFileShareLink() {
+        this.shareLink = RandomStringUtils.random(35, true, true);
+    }
 }

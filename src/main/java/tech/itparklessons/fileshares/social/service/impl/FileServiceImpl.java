@@ -85,6 +85,7 @@ public class FileServiceImpl implements FileService {
             filesharesFile.setAccess(changeAccessRequest.getAccess());
         }
 
+        filesharesFileShareLinkRepository.markAsDeleted(filesUUID);
         fileRepository.saveAll(allFilesByFilesServiceUUIDs);
     }
 
