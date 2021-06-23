@@ -1,7 +1,6 @@
 package tech.itparklessons.fileshares.social.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,7 +10,6 @@ import tech.itparklessons.fileshares.social.service.FileService;
 
 import java.util.UUID;
 
-@Secured("ROLE_BACKEND")
 @RequestMapping("/internal/social")
 @RequiredArgsConstructor
 @RestController
