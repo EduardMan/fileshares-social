@@ -28,9 +28,9 @@ public interface FileService {
 
     String getPublicLink(UUID fileUUID, User user);
 
-    void addComment(UUID fileUUID, CommentRequest commentRequestUser, User user);
+    Long addComment(UUID fileUUID, CommentRequest commentRequestUser, User user);
 
-    void addComment(String shareLink, CommentRequest commentRequestUser, User user);
+    Long addComment(String shareLink, CommentRequest commentRequestUser, User user);
 
     void removeComment(Long commentId, User user);
 

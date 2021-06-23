@@ -5,10 +5,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import tech.itparklessons.fileshares.social.model.User;
 import tech.itparklessons.fileshares.social.model.dto.CommentRequest;
-import tech.itparklessons.fileshares.social.model.entity.FilesharesSocialFile;
 import tech.itparklessons.fileshares.social.service.FileService;
 
-import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/social/attitude")
@@ -54,17 +52,17 @@ public class AttitudeController {
     }
 
     @PostMapping("/comment")
-    public void addComment(@RequestParam UUID fileUUID,
+    public Long addComment(@RequestParam UUID fileUUID,
                            @RequestBody CommentRequest commentRequest,
                            @AuthenticationPrincipal User user) {
-        fileService.addComment(fileUUID, commentRequest, user);
+        return fileService.addComment(fileUUID, commentRequest, user);
     }
 
     @PostMapping("/commentByShareLink")
-    public void addComment(@RequestParam String shareLink,
+    public Long addComment(@RequestParam String shareLink,
                            @RequestBody CommentRequest commentRequest,
                            @AuthenticationPrincipal User user) {
-        fileService.addComment(shareLink, commentRequest, user);
+        return fileService.addComment(shareLink, commentRequest, user);
     }
 
     @PostMapping("/removeComment")

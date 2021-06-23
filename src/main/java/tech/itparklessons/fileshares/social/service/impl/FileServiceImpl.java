@@ -107,11 +107,11 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public void addComment(UUID fileUUID, CommentRequest commentRequest, User user) {
+    public Long addComment(UUID fileUUID, CommentRequest commentRequest, User user) {
         FilesharesSocialFile filesharesFile = fileRepository.findByFilesServiceFileUUID(fileUUID);
 
         if (!isInteractionAcceptable(filesharesFile)) {
-            return;
+            return null;
         }
 
         Comment comment = new Comment();
@@ -119,11 +119,12 @@ public class FileServiceImpl implements FileService {
         comment.setFilesharesFile(filesharesFile);
         comment.setText(commentRequest.getText());
 
-        commentRepository.save(comment);
+        Comment save = commentRepository.save(comment);
+        return save.getId();
     }
 
     @Override
-    public void addComment(String shareLink, CommentRequest commentRequest, User user) {
+    public Long addComment(String shareLink, CommentRequest commentRequest, User user) {
         FilesharesFileShareLink filesharesFileShareLink = filesharesFileShareLinkRepository.findByShareLink(shareLink);
 
         if (filesharesFileShareLink != null) {
@@ -132,8 +133,11 @@ public class FileServiceImpl implements FileService {
             comment.setFilesharesFile(filesharesFileShareLink.getFilesharesFile());
             comment.setText(commentRequest.getText());
 
-            commentRepository.save(comment);
+            Comment save = commentRepository.save(comment);
+            return save.getId();
         }
+
+        return null;
     }
 
     @Override
