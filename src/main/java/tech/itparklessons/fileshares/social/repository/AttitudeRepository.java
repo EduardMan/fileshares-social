@@ -12,6 +12,7 @@ public interface AttitudeRepository extends JpaRepository<Attitude, Long> {
     Attitude findByFilesharesFile_FilesServiceFileUUID(UUID uuid);
 
     @Modifying
-    @Query(value = "UPDATE attitude SET deleted = true WHERE fileshares_file_id IN (:fileUUID)", nativeQuery = true)
+    @Query(value = "UPDATE attitude SET deleted = true WHERE fileshares_file_id IN " +
+            "(SELECT fileshares_social_file.id FROM fileshares_social_file WHERE files_service_fileuuid IN (:fileUUID))", nativeQuery = true)
     void markAsDeleted(List<UUID> fileUUID);
 }
