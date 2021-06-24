@@ -20,6 +20,7 @@ import tech.itparklessons.fileshares.social.repository.FilesharesFileRepository;
 import tech.itparklessons.fileshares.social.repository.FilesharesFileShareLinkRepository;
 import tech.itparklessons.fileshares.social.service.FileService;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -73,6 +74,7 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    @Transactional
     public void changeAccess(ChangeAccessRequest changeAccessRequest, User user) {
         List<UUID> filesUUID = changeAccessRequest.getFilesUUID();
         List<FilesharesSocialFile> allFilesByFilesServiceUUIDs = fileRepository.findAllByFilesServiceFileUUIDIn(filesUUID);
