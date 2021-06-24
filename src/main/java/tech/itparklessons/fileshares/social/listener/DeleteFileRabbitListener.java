@@ -8,6 +8,7 @@ import tech.itparklessons.fileshares.social.repository.CommentRepository;
 import tech.itparklessons.fileshares.social.repository.FilesharesFileRepository;
 import tech.itparklessons.fileshares.social.repository.FilesharesFileShareLinkRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public class DeleteFileRabbitListener {
     private final FilesharesFileShareLinkRepository filesharesFileShareLinkRepository;
 
     @RabbitListener(queues = "${application.queues.deleted-files}")
+    @Transactional
     public void deleteFile(List<UUID> fileUUID) {
         attitudeRepository.markAsDeleted(fileUUID);
         commentRepository.markAsDeleted(fileUUID);
