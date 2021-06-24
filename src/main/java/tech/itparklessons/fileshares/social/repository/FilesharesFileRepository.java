@@ -1,6 +1,7 @@
 package tech.itparklessons.fileshares.social.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import tech.itparklessons.fileshares.social.model.entity.FilesharesSocialFile;
 
@@ -12,7 +13,8 @@ public interface FilesharesFileRepository extends JpaRepository<FilesharesSocial
 
     FilesharesSocialFile findByFilesServiceFileUUID(UUID fileId);
 
-    @Query(value = "UPDATE fileshares_social_file SET deleted = true WHERE files_service_file_uuid IN (:fileUUID)", nativeQuery = true)
+    @Modifying
+    @Query(value = "UPDATE fileshares_social_file SET deleted = true WHERE files_service_fileuuid IN (:fileUUID)", nativeQuery = true)
     void markAsDeleted(List<UUID> fileUUID);
 
     @Query(value = "SELECT * FROM fileshares_social_file WHERE owner_id = :userId AND access = 'PUBLIC' AND deleted = false", nativeQuery = true)
