@@ -17,8 +17,8 @@ public class InternalSocialController {
     private final FileService fileService;
 
     @GetMapping("/checkAccess")
-    public boolean checkAccess(@RequestParam UUID fileUuid) {
-        return fileService.checkAccess(fileUuid);
+    public boolean checkAccess(@RequestParam UUID fileUUID) {
+        return fileService.checkAccess(fileUUID);
     }
 
     @GetMapping("/getByShareLink")
