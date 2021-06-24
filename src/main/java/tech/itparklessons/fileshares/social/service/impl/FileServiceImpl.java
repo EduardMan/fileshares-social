@@ -127,7 +127,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public Long addComment(String shareLink, CommentRequest commentRequest, User user) {
-        FilesharesFileShareLink filesharesFileShareLink = filesharesFileShareLinkRepository.findByShareLink(shareLink);
+        FilesharesFileShareLink filesharesFileShareLink = filesharesFileShareLinkRepository.findByShareLinkAndDeletedFalse(shareLink);
 
         if (filesharesFileShareLink != null) {
             Comment comment = new Comment();
@@ -162,7 +162,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public FilesharesSocialFile getFilesharesSocialFile(String shareLink) {
-        return filesharesFileShareLinkRepository.findByShareLink(shareLink).getFilesharesFile();
+        return filesharesFileShareLinkRepository.findByShareLinkAndDeletedFalse(shareLink).getFilesharesFile();
     }
 
     @Override
@@ -188,7 +188,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void like(String shareLink, User user) {
-        FilesharesFileShareLink filesharesFileShareLink = filesharesFileShareLinkRepository.findByShareLink(shareLink);
+        FilesharesFileShareLink filesharesFileShareLink = filesharesFileShareLinkRepository.findByShareLinkAndDeletedFalse(shareLink);
 
         if (filesharesFileShareLink != null) {
             Attitude attitude = attitudeRepository.findByFilesharesFile_FilesServiceFileUUID(filesharesFileShareLink.getFilesharesFile().getFilesServiceFileUUID());
@@ -210,7 +210,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void dislike(String shareLink, User user) {
-        FilesharesFileShareLink filesharesFileShareLink = filesharesFileShareLinkRepository.findByShareLink(shareLink);
+        FilesharesFileShareLink filesharesFileShareLink = filesharesFileShareLinkRepository.findByShareLinkAndDeletedFalse(shareLink);
 
         if (filesharesFileShareLink != null) {
             Attitude attitude = attitudeRepository.findByFilesharesFile_FilesServiceFileUUID(filesharesFileShareLink.getFilesharesFile().getFilesServiceFileUUID());
@@ -232,7 +232,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public void removeAttitude(String shareLink, User user) {
-        FilesharesFileShareLink filesharesFileShareLink = filesharesFileShareLinkRepository.findByShareLink(shareLink);
+        FilesharesFileShareLink filesharesFileShareLink = filesharesFileShareLinkRepository.findByShareLinkAndDeletedFalse(shareLink);
 
         if (filesharesFileShareLink != null) {
             Attitude attitude = attitudeRepository.findByFilesharesFile_FilesServiceFileUUID(filesharesFileShareLink.getFilesharesFile().getFilesServiceFileUUID());

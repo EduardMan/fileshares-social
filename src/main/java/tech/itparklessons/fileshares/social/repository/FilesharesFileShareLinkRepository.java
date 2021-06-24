@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface FilesharesFileShareLinkRepository extends JpaRepository<FilesharesFileShareLink, Long> {
-    FilesharesFileShareLink findByShareLink(String shareLink);
+    FilesharesFileShareLink findByShareLinkAndDeletedFalse(String shareLink);
 
     @Modifying
     @Query(value = "UPDATE fileshares_file_share_link SET deleted = true WHERE fileshares_file_id IN " +
