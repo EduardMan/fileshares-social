@@ -1,0 +1,7 @@
+GET http://localhost:8888/api/archiver/getFile?fileUUID={{fileUUID}}
+Authorization: Bearer {{auth_token}}
+
+###
+
+GET http://localhost:8888/api/archiver/getFileByShareLink?shareLink={{shareLink}}
+Authorization: Bearer {{auth_token}}
