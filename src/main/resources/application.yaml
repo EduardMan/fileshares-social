@@ -16,3 +16,5 @@ spring:
 opentracing:
   jaeger:
     service-name: fileshares-social
+    udp-sender:
+      host: jaeger-ui
