@@ -40,11 +40,23 @@ services:
     depends_on:
       - fileshares-social-db
       - rabbitmq
+
   fileshares-archiver-service:
     image: ghcr.io/eduardman/fileshares-archiver:latest
     depends_on:
       - fileshares-archiver-db
       - rabbitmq
+
+  jaeger-ui:
+    image: jaegertracing/all-in-one:latest
+    ports:
+      - 6831:6831/udp
+      - 16686:16686
+    depends_on:
+      - fileshares-account-service
+      - fileshares-files-service
+      - fileshares-social-service
+      - fileshares-archiver-service
 
 
   fileshares-account-db:
